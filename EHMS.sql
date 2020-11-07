@@ -29,7 +29,8 @@ create table Doctors(
     Age int ,
     Entry_Charge int,
     Degree varchar(50),
-    Department varchar(50),
+    Department varchar(50),#we will take 5 Departments.
+    #1.Cardiologists  2.Anesthesiologists 3.General 4.Neurologist 5.Pediatricians
     address varchar(20),
     primary key(DoctorID)
 );
