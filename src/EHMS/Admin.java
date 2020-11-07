@@ -41,34 +41,34 @@ public class Admin extends Person
 	{
 		return temp2++;
 	}
-	public int addPatient() 
-	{
-		int PatientID=generatePatientID();
-		String password;
-		String cpd;
-		System.out.println("Patient ID:"+PatientID);
-		System.out.println("Enter Password:");
-		password=sc.next();
-		while(true)
-		{
-			System.out.println("Confirm Password");
-			cpd=sc.next();
-			if(password.compareTo(cpd)==0)
-					break;
-		}
-		try {
-			Connection con=ConnectionProvider.getCon();
-			Statement st=con.createStatement();
-			st.executeUpdate("insert into Users values('"+PatientID+"','"+password+"','"+"Patient"+"')");
-			System.out.println("Registered Succesfully!!");
-		}catch(Exception e){
-			System.out.println("Please enter data in correct format!!");
-		}
-		return PatientID;
-		
-		
-		
-	}
+//	public int addPatient() 
+//	{
+//		int PatientID=generatePatientID();
+//		String password;
+//		String cpd;
+//		System.out.println("Patient ID:"+PatientID);
+//		System.out.println("Enter Password:");
+//		password=sc.next();
+//		while(true)
+//		{
+//			System.out.println("Confirm Password");
+//			cpd=sc.next();
+//			if(password.compareTo(cpd)==0)
+//					break;
+//		}
+//		try {
+//			Connection con=ConnectionProvider.getCon();
+//			Statement st=con.createStatement();
+//			st.executeUpdate("insert into Users values('"+PatientID+"','"+password+"','"+"Patient"+"')");
+//			System.out.println("Registered Succesfully!!");
+//		}catch(Exception e){
+//			System.out.println("Please enter data in correct format!!");
+//		}
+//		return PatientID;
+//		
+//		
+//		
+//	}
 	public int addDoctor()
 	{
 		int DoctorID=generateDoctorID();
@@ -79,10 +79,20 @@ public class Admin extends Person
 		password=sc.next();
 		while(true)
 		{
-			System.out.println("Confirm Password");
+			System.out.println("Confirm Password Below");
 			cpd=sc.next();
 			if(password.compareTo(cpd)==0)
-					break;
+			{
+				
+				System.out.println("***Successfully Added DOCTOR***");
+				System.out.println("DOCTOR-ID : "+DoctorID);
+				System.out.println("PASSWORD : "+password);
+				break;
+			}
+			else
+			{
+				System.out.println("**\tRE-ENTER The Password**");
+			}
 		}
 		try {
 			Connection con=ConnectionProvider.getCon();
@@ -94,9 +104,17 @@ public class Admin extends Person
 		}
 		return DoctorID;
 	}
+	
+	
 	public void viewDoctors()
 	{
-		System.out.println("Enter 1 to view all Doctors 2 to view Doctor by id");
+        System.out.print("\t**********************************************************************************************\n");
+	    System.out.print("\t*                                                                                            *\n");
+	    System.out.print("\t*                  1. TO VIEW ALL DOCTORS                                                    *\n");
+	    System.out.print("\t*                  2. TO VIEW DOCTORS BY ID                                                  *\n");
+        System.out.print("\t*                  3. TO VIEW DOCTOR BY FIRST_NAME                                           *\n");
+        System.out.print("\t*                                                                                            *\n");
+	    System.out.print("\t**********************************************************************************************\n");
 		try 
 		{
 			Connection con=ConnectionProvider.getCon();
