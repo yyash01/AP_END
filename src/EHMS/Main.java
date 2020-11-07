@@ -7,14 +7,22 @@ public class Main
 {
 	public static void main(String[] args) 
 	{
-		System.out.println("******************************E-HealthCare-Management-Sytem**********************************");
+		System.out.println("\n\t******************************E-HealthCare-Management-Sytem***********************************\n");
 		Scanner sc=new Scanner(System.in);
 		Admin a=new Admin();
 		Patients p=null;
 		Doctor d=null;
 		while(true)
 		{
-		System.out.println("1.AdminLogin\n 2.DoctorLogin.\n3.PatientLogin \n");		
+	        System.out.print("\t**********************************************************************************************\n");
+	        System.out.print("\t*                                                                                            *\n");
+	        System.out.print("\t*                  1. ADMIN - LOGIN                                                          *\n");
+	        System.out.print("\t*                  2. PATIENT - LOGIN                                                        *\n");
+	        System.out.print("\t*                  3. DOCTOR - LOGIN                                                         *\n");
+	        System.out.print("\t*                                                                                            *\n");
+	        System.out.print("\t*                  4. REGISTER - PATIENT                                                     *\n");
+	        System.out.print("\t*                                                                                            *\n");
+	        System.out.print("\t**********************************************************************************************\n");;		
 		int choice = sc.nextInt();
 		switch (choice)
 		{
@@ -29,7 +37,7 @@ public class Main
 		    	{
 		    		while(true)
 		    		{
-		    			System.out.println("1.ViewDoctors\n2.ViewPatients.\n4.AddDoctor\n5.RemovePatient\n6.RemoveDoctor\n7.viewAppointments\n8.viewPaymentDetils\n9.updateDoctorsdetails\n10.UpdatePatientDetails");
+		    			System.out.println("\t\n1.DoctorsList\n\t2.PatientsList.\n\t3.AddDoctor\n\t4.RemoveDoctor\n\t5.AppointmentsDetail\n\t6.updateDoctorsdetails");
 		    			int ch=sc.nextInt();
 		    			switch(ch)
 		    			{
@@ -50,30 +58,38 @@ public class Main
 		    				// 	p.PatientRegistration(id);
 		    				// 	break;
 		    				// }
-		    				case 4:
+		    				case 3:
 		    				{
 		    					int Id=a.addDoctor();
 		    					d=new Doctor();
 		    					d.DoctorRegistration(Id);
 		    					break;
 		    				}
-		    				case 5:
-		    				{
-		    					System.out.println("Enter doctorID!!");
-		    					int id=sc.nextInt();
-		    					a.RemoveDoctor(id);
-		    					break;
-		    				}
-		    				case 6:
+//		    				case 5:
+//		    				{
+//		    					System.out.println("Enter doctorID!!");
+//		    					int id=sc.nextInt();
+//		    					a.RemoveDoctor(id);
+//		    					break;
+//		    				}
+		    				case 4:
 		    				{
 		    					System.out.println("Enter doctorID!!");
 		    					int id=sc.nextInt();
 		    					a.RemovePatient(id);
 		    					break;
 		    				}
-		    				case 7:
+		    				case 5:
 		    				{
+	    					  //AppointmentsDetail
 		    					break;
+		    				}
+		    				//case-8 was paymentDetail -> we will fix price of each doctor => 500/- okay.
+		    				case 6:
+		    				{
+		    					//updateDoctorsdetails
+		    					break;
+		    					
 		    				}
 		    			}
 		    		}
