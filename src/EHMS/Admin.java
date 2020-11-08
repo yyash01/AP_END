@@ -155,7 +155,6 @@ public class Admin extends Person
 				System.out.println("Adress  -   "+rs.getString(9));
 				System.out.println("---------------------------------------");
 				System.out.println("---------------------------------------");
-				
 			}
 		}
 		catch(Exception e)
@@ -167,11 +166,11 @@ public class Admin extends Person
 		{
 			Connection con=ConnectionProvider.getCon();
 			Statement st=con.createStatement();
-			st.executeUpdate("");
+			st.executeUpdate("delete  from Doctors where DoctorID = "+id);
 			System.out.println("Removed Succesfully");
 		}
 		catch(Exception e)
-		{ System.out.println(e);}  
+		{ System.out.println("EXCEPTION OCCURS");}  
 	}
 	public void RemovePatient(int id) 
 	{

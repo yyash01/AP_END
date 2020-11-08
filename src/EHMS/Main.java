@@ -79,7 +79,7 @@ public class Main
 		    				{
 		    					System.out.println("Enter doctorID!!");
 		    					int id=sc.nextInt();
-		    					a.RemovePatient(id);
+		    					a.RemoveDoctor(id);
 		    					break;
 		    				}
 		    				case 5:

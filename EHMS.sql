@@ -80,3 +80,6 @@ insert into Doctors values(1,'DOCTOR','JAIN','M','2323344',34,600,'MSC','General
 select * from Doctors;
 select * from Doctors where DoctorID = 1;
 insert into Patients values(2,'Sidarth','jain','M','23445545',12,'yash@gmffail.com','B','3/436');
+select * from Doctors where DoctorID = 1;
+insert into Doctors values(1,'DOCTOR','JAIN','M','2323344',34,600,'MSC','General','3/436');
+select * from Doctors where DoctorID = 1;
