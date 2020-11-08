@@ -114,39 +114,27 @@ public class Admin extends Person
 	
 	
 	public void viewDoctors()
-	{
-        System.out.print("\t**********************************************************************************************\n");
-	    System.out.print("\t*                                                                                            *\n");
-	    System.out.print("\t*                  1. TO VIEW ALL DOCTORS                                                    *\n");
-	    System.out.print("\t*                  2. TO VIEW DOCTORS BY ID                                                  *\n");
-        System.out.print("\t*                  3. TO VIEW DOCTOR BY FIRST_NAME                                           *\n");
-        System.out.print("\t*                                                                                            *\n");
-	    System.out.print("\t**********************************************************************************************\n");
-	    
-	    //now here we had to make cases 1. view all doctors k liye try and catch bna pda hai shi bhi hai.
-	    /*
-	     * secondly 2.  execute query for 2nd case  to output the result by retrieving data from database.
-	     * 
-	     * 3. execute query for 3rd case  to output the result by retrieving data from database.
-	     */
-	    
+	{	    
 		try 
 		{
 			Connection con=ConnectionProvider.getCon();
 			Statement st=con.createStatement();
 			ResultSet rs=st.executeQuery("select * from Doctors");
 			while(rs.next())
-			{
-				System.out.println(rs.getInt(1)+"  "+rs.getString(2)+"  "+rs.getString(3));
+			{				
+				System.out.print("\t********************************************************************************************************************\n");
+				System.out.print("\t| DoctorID | First_Name | Last_Name | Gender | ContactNumber | Age  | Entry_Charge | Degree | Department | address |\n");
+				System.out.print("\t| "+rs.getInt(1)+"        | "+rs.getString(2)+" - "+rs.getString(3)+"          | "+rs.getString(4)+"      | "+rs.getString(5)+"       | "+rs.getInt(6)+"   | "+rs.getString(7)+"          | "+rs.getString(8)+"    | "+rs.getString(9)+"    | "+rs.getString(10));
+				System.out.println("\n");
 			}
 			st.close();
 			con.close();
 		}
 		catch(Exception e)
 		{ System.out.println("EXCEPTION OCCURS");}  
-		
-
 	}
+	
+	
 	public void viewPatients()
 	{
 		try 
@@ -157,11 +145,21 @@ public class Admin extends Person
 			ResultSet rs=st.executeQuery(query);
 			while(rs.next())
 			{
-				System.out.println(rs.getInt(1)+"  "+rs.getString(2)+"  "+rs.getString(3));
+				System.out.println("PatientID - "+rs.getInt(1));
+				System.out.println("NAME  -     "+rs.getString(2)+rs.getString(3));
+				System.out.println("Gender -    "+rs.getString(4));
+				System.out.println("Contact Number  - "+rs.getString(5));
+				System.out.println("Age-        "+rs.getInt(6));
+				System.out.println("Email-ID -  "+rs.getString(7));
+				System.out.println("BloodGroup - "+rs.getString(8));
+				System.out.println("Adress  -   "+rs.getString(9));
+				System.out.println("---------------------------------------");
+				System.out.println("---------------------------------------");
+				
 			}
 		}
 		catch(Exception e)
-		{ System.out.println(e);}  
+		{ System.out.println("EXCEPTION OCCURS");}  
 	}
 	public void RemoveDoctor(int id) 
 	{

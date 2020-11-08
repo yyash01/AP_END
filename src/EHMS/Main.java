@@ -8,6 +8,7 @@ public class Main
 	public static void main(String[] args) 
 	{
 		System.out.println("\n\t******************************E-HealthCare-Management-Sytem***********************************\n");
+		boolean check = false;
 		Scanner sc=new Scanner(System.in);
 		Admin a=new Admin();
 		Patients p=null;
@@ -22,12 +23,14 @@ public class Main
 	        System.out.print("\t*                                                                                            *\n");
 	        System.out.print("\t*                  4. REGISTER - PATIENT                                                     *\n");
 	        System.out.print("\t*                                                                                            *\n");
-	        System.out.print("\t**********************************************************************************************\n");;		
+	        System.out.print("\t*                  5. EXIT                                                                   *\n");
+	        System.out.print("\t**********************************************************************************************\n");	
 		int choice = sc.nextInt();
 		switch (choice)
 		{
 		    case 1:  // admins portal
-		    {   
+		    {  
+		    	boolean checkadmin = false;
 		    	System.out.println("***********Welcome to Admins portal******************");
 		    	String un;
 		    	String pd;
@@ -37,7 +40,7 @@ public class Main
 		    	{
 		    		while(true)
 		    		{
-		    			System.out.println("\t\n1.DoctorsList\n\t2.PatientsList.\n\t3.AddDoctor\n\t4.RemoveDoctor\n\t5.AppointmentsDetail\n\t6.updateDoctorsdetails");
+		    			System.out.println("\n\t1.DoctorsList\n\t2.PatientsList.\n\t3.AddDoctor\n\t4.RemoveDoctor\n\t5.AppointmentsDetail\n\t6.updateDoctorsdetails\n\t7.LOGOUT");
 		    			int ch=sc.nextInt();
 		    			switch(ch)
 		    			{
@@ -89,10 +92,17 @@ public class Main
 		    				{
 		    					//updateDoctorsdetails
 		    					break;
+		    				}
+		    				case 7:
+		    				{
+		    					checkadmin = true;
+		    					break;
 		    					
 		    				}
-		    			}
-		    		}
+		    			}//end of switch
+		    			if(checkadmin)
+		    				break;
+		    		}//end of while
 		    		
 		    	}
 		    	else
@@ -101,6 +111,7 @@ public class Main
 		    }
 		    case 2:   //For Patient   
 		    {
+		    	boolean checkPatient = false;
 		    	int flag=0;
 		    	System.out.println("*****************Welcome to patient portal***********************");
 		    	String un;
@@ -145,14 +156,29 @@ public class Main
 		    				{
 		    					
 		    				}
+		    				case 6:
+		    				{
+		    					
+		    				}
+		    				case 7:
+		    				{
+		    					
+		    				}
+		    				case 8:
+		    				{
+		    					checkPatient = true;
+		    					break;
+		    				}
 		    			}
-		    		}
+		    			if(checkPatient)
+		    				break;
+		    		}//end of while
 		    	}
 		    	break;
-		    	
 		    }
 		    case 3: //For Doctor
 		    {
+		    	boolean checkDoctor = false;
 		    	System.out.println("Welcome to Doctors portal");
 		    	int flag=0;
 		    	String un;
@@ -180,18 +206,63 @@ public class Main
 		    				{
 		    			
 		    				}
-		    			}
-		    		}
+		    				case 2:
+		    				{
+		    					
+		    				}
+		    				case 3:
+		    				{
+		    					
+		    				}
+		    				case 4:
+		    				{
+		    					
+		    				}
+		    				case 5:
+		    				{
+		    					
+		    				}
+		    				case 6:
+		    				{
+		    					
+		    				}
+		    				case 7:
+		    				{
+		    					
+		    				}
+		    				case 8:
+		    				{
+		    					checkDoctor = true;
+		    					break;
+		    				}
+		    			}//end of switch.
+		    			if(checkDoctor)
+		    				break;
+		    		}//end of while
 		    	}
 		    	break;
 		    	
 		    }
-		    case 4: 
+		    case 4:   //registration of Patient
 		    {
+		    	
+		    	
 		    	break;
 		    }
-		}
-		}
+		    case 5:
+		    {
+		    	System.out.println("**THANKS FOR VISITING US - Have A Nice Day**");
+		    	check = true;
+		    	break;
+		    }
+		    default :
+		    {
+		    	System.out.println("** PLEASE CHOOSE AN OPTION **");
+		    }
+		}//end of switch
+		if(check)
+			break;
+		}//end of while loop
 
 	}
 
