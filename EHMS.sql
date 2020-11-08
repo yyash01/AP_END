@@ -27,7 +27,7 @@ create table Doctors(
     Gender varchar(10),
     ContactNumber varchar(11),
     Age int ,
-    Entry_Charge int,
+    Entry_Charge int,   # this is the fees
     Degree varchar(50),
     Department varchar(50),#we will take 5 Departments.
     #1.Cardiologists  2.Anesthesiologists 3.General 4.Neurologist 5.Pediatricians

@@ -69,6 +69,13 @@ public class Admin extends Person
 //		
 //		
 //	}
+	
+	
+	/*
+	 * Admin had to Set Fees of  a Particular Doctor jb bhi vo add krega a New Doctor and vo fees doctor database table me bhi ajayegi..
+	 * It would make payment details easier. */
+	
+	
 	public int addDoctor()
 	{
 		int DoctorID=generateDoctorID();
@@ -115,6 +122,14 @@ public class Admin extends Person
         System.out.print("\t*                  3. TO VIEW DOCTOR BY FIRST_NAME                                           *\n");
         System.out.print("\t*                                                                                            *\n");
 	    System.out.print("\t**********************************************************************************************\n");
+	    
+	    //now here we had to make cases 1. view all doctors k liye try and catch bna pda hai shi bhi hai.
+	    /*
+	     * secondly 2.  execute query for 2nd case  to output the result by retrieving data from database.
+	     * 
+	     * 3. execute query for 3rd case  to output the result by retrieving data from database.
+	     */
+	    
 		try 
 		{
 			Connection con=ConnectionProvider.getCon();
@@ -128,7 +143,7 @@ public class Admin extends Person
 			con.close();
 		}
 		catch(Exception e)
-		{ System.out.println(e);}  
+		{ System.out.println("EXCEPTION OCCURS");}  
 		
 
 	}
