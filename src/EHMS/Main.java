@@ -40,7 +40,16 @@ public class Main
 		    	{
 		    		while(true)
 		    		{
-		    			System.out.println("\n\t1.DoctorsList\n\t2.PatientsList.\n\t3.AddDoctor\n\t4.RemoveDoctor\n\t5.AppointmentsDetail\n\t6.updateDoctorsdetails\n\t7.LOGOUT");
+		    	        System.out.print("\t**********************************************************************************************\n");
+		    	        System.out.print("\t*                                                                                            *\n");
+		    	        System.out.print("\t*                  1.DoctorsList                                                             *\n");
+		    	        System.out.print("\t*                  2.PatientsList.                                                           *\n");
+		    	        System.out.print("\t*                  3.AddDoctor                                                               *\n");
+		    	        System.out.print("\t*                  4.RemoveDoctor                                                            *\n");
+		    	        System.out.print("\t*                  5.AppointmentsDetail                                                      *\n");
+		    	        System.out.print("\t*                  6.ViewFeedbacks                                                           *\n");
+		    	        System.out.print("\t*                  7.LOGOUT                                                                  *\n");
+		    	        System.out.print("\t**********************************************************************************************\n");	
 		    			int ch=sc.nextInt();
 		    			switch(ch)
 		    			{
@@ -54,13 +63,6 @@ public class Main
 		    					a.viewPatients();
 		    					break;
 		    				}
-		    				// case 3:
-		    				// {
-		    				// 	int id=a.addPatient();
-		    			    // 	p=new Patients();
-		    				// 	p.PatientRegistration(id);
-		    				// 	break;
-		    				// }
 		    				case 3:
 		    				{
 		    					int Id=a.addDoctor();
@@ -68,13 +70,6 @@ public class Main
 		    					d.DoctorRegistration(Id);
 		    					break;
 		    				}
-//		    				case 5:
-//		    				{
-//		    					System.out.println("Enter doctorID!!");
-//		    					int id=sc.nextInt();
-//		    					a.RemoveDoctor(id);
-//		    					break;
-//		    				}
 		    				case 4:
 		    				{
 		    					System.out.println("Enter doctorID!!");
@@ -85,12 +80,14 @@ public class Main
 		    				case 5:
 		    				{
 	    					  //AppointmentsDetail
+		    					a.Appointment();
 		    					break;
 		    				}
 		    				//case-8 was paymentDetail -> we will fix price of each doctor => 500/- okay.
 		    				case 6:
 		    				{
-		    					//updateDoctorsdetails
+		    					//feedbacks
+		    					a.ViewFeedback();
 		    					break;
 		    				}
 		    				case 7:

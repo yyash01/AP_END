@@ -83,3 +83,12 @@ insert into Patients values(2,'Sidarth','jain','M','23445545',12,'yash@gmffail.c
 select * from Doctors where DoctorID = 1;
 insert into Doctors values(1,'DOCTOR','JAIN','M','2323344',34,600,'MSC','General','3/436');
 select * from Doctors where DoctorID = 1;
+insert into Doctors values(2,'Sid','JAIN','f','2323344',34,500,'Mbbs','General','3/436');
+select * from Doctors;
+delete  from Doctors where DoctorID = 1;
+delete  from Doctors where DoctorID = 2;
+Select MAX(DoctorID) as 'MaximumID' from Doctors;
+select * from Doctors;
+insert into Doctors values(1,'DOCTOR','JAIN','M','2323344',34,600,'MSC','General','3/436');
+insert into Doctors values(2,'Sid','JAIN','f','2323344',34,500,'Mbbs','General','3/436');
+select * from Doctors;
