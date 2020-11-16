@@ -18,7 +18,7 @@ public class Person
 	Scanner sc=new Scanner(System.in);
 	protected void UserInformation()
 	{
-    	System.out.println("Enter the following Details");
+    	
     	System.out.println("First Name:");
     	First_Name=sc.next();
     	System.out.println("Last Name:");
@@ -39,20 +39,5 @@ public class Person
     	Country=sc.next();
     	System.out.println("Address:");
     	Address=sc.next();
-    	//sc.close();
 	}
-	//void ShowUserDetails()
-	//{
-	//	System.out.println("PatientID:"+PatientID);
-		//System.out.println("Name:"+First_Name+" "+Last_Name);
-		//System.out.println("Gender"+Gender);
-		//System.out.println("Mobile No:"+CN);
-		//System.out.println("EmailId:"+Email_Address);
-		//System.out.println("DOB:"+DOB);
-		//System.out.println("Age:"+age);
-		//System.out.println("Address:"+Address);
-	//}
-	
-	
-	
 }

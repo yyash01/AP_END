@@ -1,5 +1,4 @@
 package EHMS;
-import java.sql.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -7,32 +6,44 @@ import java.sql.Statement;
 import java.util.Scanner;
 public class Doctor extends Person
 {
-	/////////////////////// int DocID;////////////////////
-	String Department;
-	String Degree;
+	int DocID;
+	String Doctor_Type,Qualification;
 	int Entry_Charge;
 	Scanner sc=new Scanner(System.in);
 	public void DoctorRegistration(int docid)
 	{
+		
 		super.UserInformation();
-    	System.out.println("EntryFee");
+		DocID = docid;
+    	System.out.println("Entry_Charges : ");
     	Entry_Charge=sc.nextInt();
-    	System.out.println("Degree:");
-    	Degree=sc.next();
-    	System.out.println("Department:");
-    	Department=sc.next();
+    	System.out.println("Qualification : ");
+    	Qualification=sc.next();
+    	System.out.println("Choose Doctor_Type From below List:");
+		System.out.print("\t**********************************************************************************************\n");
+        System.out.print("\t*                                                                                            *\n");
+        System.out.print("\t*                    Eye_Specialist                                                         *\n");
+        System.out.print("\t*                    EAR_Specialist                                                          *\n");
+        System.out.print("\t*                    Heart_Specialist                                                        *\n");
+        System.out.print("\t*                    Bones_Specialist                                                        *\n");
+        System.out.print("\t*                    Lungs_Specialist                                                        *\n");
+        System.out.print("\t*                    Kidney_Specialist                                                       *\n");
+        System.out.print("\t*                    General_Phsysicist                                                      *\n");
+        System.out.print("\t*                                                                                            *\n");
+        System.out.print("\t**********************************************************************************************\n");	
+        Doctor_Type=sc.next();
     	Register reg=new Register();
-    	reg.doctor_Registration(docid,First_Name,Last_Name,Gender,CN,age,Entry_Charge,Degree,Department);
+    	reg.doctor_Registration(docid,First_Name,Last_Name,Gender,CN,age,Entry_Charge,Qualification,Doctor_Type,Email_Address);
 	}
 
 	public void ShowDoctorDetails()
 	{
-		System.out.println("DoctorID:"+DocID);
-		System.out.println("Name:"+First_Name+" "+Last_Name);
-		System.out.println("Degree"+Degree);
-		System.out.println("Department"+Department);
-		System.out.println("Mobile No:"+CN);
-		System.out.println("EmailId:"+Email_Address);
+		System.out.println("DoctorID: "+DocID);
+		System.out.println("Name: "+First_Name+" "+Last_Name);
+		System.out.println("Qualification "+Qualification);
+		System.out.println("Department "+Doctor_Type);
+		System.out.println("Mobile No: "+CN);
+		System.out.println("EmailId: "+Email_Address);
 	}
 	public void viewAppointment()
 	{

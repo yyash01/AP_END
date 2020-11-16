@@ -1,45 +1,32 @@
 package EHMS;
 import java.sql.*;
-import EHMS.DBTablePrinter;
-import EHMS.ConnectionProvider;
-import java.sql.*;
 import java.util.*;
 public class Admin extends Person
 {
-	
-	Scanner sc =new Scanner(System.in);
-	private  int pid;
-	private  int docid;
-	
 
-	static int generateDoctorID()
+	Scanner sc =new Scanner(System.in);
+	private int AutoDoctorID()
 	{
-		int id_doctor = 0;
-		try
-		{
+		int docid=0;
+		try{
 			Connection con=ConnectionProvider.getCon();
 			Statement st=con.createStatement();
-			
-			ResultSet rs=st.executeQuery("Select MAX(DoctorID) as 'MaximumID' from Doctors");
+			ResultSet rs=st.executeQuery("Select MAX(UserID) as NextUserID from Users where userType='Doctor'");
 			rs.next();
-			id_doctor = rs.getInt(1);
+			docid = rs.getInt(1);
 			if(rs.wasNull())
 			{
 				return 1;
 			}
-		}
-		catch(Exception e)
+		}catch(Exception e)
 		{
-			System.out.println("EXCEPTION OCCURS");	
+			System.out.println(e.getMessage());
 		}
-		return id_doctor+1;
+		return docid+1;
 	}
-
-		
-	
 	public int addDoctor()
 	{
-		int DoctorID=generateDoctorID();
+		int DoctorID=AutoDoctorID();
 		String password;
 		String cpd;
 		System.out.println("Doctor ID:"+DoctorID);
@@ -65,17 +52,15 @@ public class Admin extends Person
 		try {
 			Connection con=ConnectionProvider.getCon();
 			Statement st=con.createStatement();
-			st.executeUpdate("insert into Users values('"+DoctorID+"','"+password+"','"+"Doctor"+"')");
+			st.executeUpdate("insert into Users values('"+DoctorID+"','"+"Doctor"+"','"+password+"')");
 			System.out.println("Registered Succesfully!!");
 		}catch(Exception e){
 			System.out.println("Please enter data in correct format!!");
 		}
 		return DoctorID;
 	}
-	
-	
 	public void viewDoctors()
-	{	    
+	{
 		try 
 		{
 			Connection con=ConnectionProvider.getCon();
@@ -84,9 +69,9 @@ public class Admin extends Person
 		}
 		catch(Exception e)
 		{ System.out.println("EXCEPTION OCCURS");}  
+
+
 	}
-	
-	
 	public void viewPatients()
 	{
 		try 
@@ -97,7 +82,8 @@ public class Admin extends Person
 		catch(Exception e)
 		{ System.out.println("EXCEPTION OCCURS");}  
 	}
-	public void RemoveDoctor(int id) 
+	
+	public void RemoveDoctor(int id)
 	{
 		try 
 		{
@@ -109,13 +95,6 @@ public class Admin extends Person
 		catch(Exception e)
 		{ System.out.println("EXCEPTION OCCURS");}  
 	}
-
-	
-	public void viewPatientReport() {}//admin can view all the patient reports
-	
-	//sid se puch le ki ye ViewPatientReport bhi rkhna hai kya .........
-
-	
 	
 	
 	public void Appointment() //case 5: in main.java file ---  Appointmnet Table ka content Show ho jayega.
@@ -139,10 +118,6 @@ public class Admin extends Person
 			DBTablePrinter.printTable(con, "feedback");
 		}
 		catch(Exception e)
-		{ System.out.println("EXCEPTION OCCURS");}
-		
+		{ System.out.println("EXCEPTION OCCURS");}	
 	}
-
-
-
 }
