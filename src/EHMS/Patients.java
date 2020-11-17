@@ -1,13 +1,15 @@
 package EHMS;
-import EHMS.ConnectionProvider;
-import EHMS.Register;
 import java.sql.*;
+import EHMS.Main;
 
 import java.util.Scanner;
 public class Patients extends Person
 {
 	Scanner sc=new Scanner(System.in);
     String BloodGroup ;
+    public int id_patient;
+   
+    
     private int AutoPatientID()
 	{
 		int id_Patient=0;
@@ -27,7 +29,7 @@ public class Patients extends Person
 		}
 		return id_Patient+1;
 	}
-    public int addPatient() 
+    public int addPatient(Patients[] P) 
 	{
 		int PatientID=AutoPatientID();
 		String password;
@@ -45,6 +47,7 @@ public class Patients extends Person
 				System.out.println("*** Successfull Registration ***");
 				System.out.println("PATIENT-ID : "+PatientID);
 				System.out.println("PASSWORD : "+password);
+				P[PatientID] = new Patients();
 				break;
 			}
 			else
@@ -55,8 +58,7 @@ public class Patients extends Person
 		try {
 			Connection con=ConnectionProvider.getCon();
 			Statement st=con.createStatement();
-			st.executeUpdate("insert into Users values('"+PatientID+"','"+password+"','"+"Patient"+"')");
-//			System.out.println("Registered Succesfully!!");
+			st.executeUpdate("insert into Users values('"+PatientID+"','"+"Patient"+"','"+password+"')");
 		}catch(Exception e){
 			System.out.println("Please enter data in correct format!!");
 		}
@@ -99,39 +101,96 @@ public class Patients extends Person
     public void BookAppointment(int id) 
     {
     	Appointment ap=new Appointment();
-    	ap.BookAppointment(id);
-    	
-    	
-    	
+    	ap.BookAppointment(id);	
     }
-    public void viewAppointment() 
+    public void viewAppointment(int id) 
     {
+    	int t=0;
+		try {
+    		Connection con=ConnectionProvider.getCon();
+    		Statement st=con.createStatement();
+    		ResultSet rs=st.executeQuery("Select * from  Appointments where PatientID="+id);
+    		while(rs.next())
+    		{
+    			t++;
+    			System.out.println("\t*** APPOINTMENT - NUMBER : "+t);
+				System.out.print("\t* Appointment_ID : "+rs.getInt(1)+"                          \n");
+				System.out.print("\t* Problem  :       "+rs.getString(2)+"                       \n");
+				System.out.print("\t* PatientId :      "+rs.getInt(3)+"                          \n");
+				System.out.print("\t* Doctor_Id :      "+rs.getInt(5)+"                          \n");
+				System.out.print("\t* DoctorFees :     "+rs.getString(8)+"                       \n");
+				System.out.print("\t* PaymentStatus :  "+rs.getString(9)+"                       \n");
+				System.out.print("\t*************************************************************\n");	
+    		}
+    	}
+    	catch(Exception e)
+    	{
+    		System.out.println(e.getMessage());
+    	}
     	
     }
-    public void GetPatientStatus() 
+    public void ViewReport(int id)
     {
+    	try {
+    		Connection con=ConnectionProvider.getCon();
+			Statement st=con.createStatement();
+			ResultSet rs=st.executeQuery("select * from Reports where PatientID = "+id);
+			while(rs.next())
+			{
+				System.out.print("\t* ReportID  :         "+rs.getInt(1)+"                          \n");
+				System.out.print("\t* Appointment_ID :    "+rs.getInt(2)+"                          \n");
+				System.out.print("\t* PatientId :         "+rs.getInt(3)+"                          \n");
+				System.out.print("\t* Doctor_Id :         "+rs.getInt(4)+"                          \n");
+				System.out.print("\t* MedicinePrescribed :"+rs.getString(5)+"                       \n");
+				System.out.print("\t* Bill_Amount :       "+rs.getInt(7)+"                          \n");
+				System.out.print("\t* PaymentStatus :     "+rs.getString(8)+"                       \n");
+				System.out.print("\t*************************************************************\n");	
+			}
+    	}catch(Exception e) {
+    		System.out.println(e.getMessage());
+    	}
     	
     }
-    public void ViewReport()
+    public void ChangePassword(int id)
     {
-    	
+    	System.out.println("** Enter New Password **");
+    	String pass = sc.next();
+    	try {
+			Connection con=ConnectionProvider.getCon();
+			Statement st=con.createStatement();
+			st.executeUpdate("UPDATE  Users set Password = "+pass+"where userID = "+id);
+			System.out.println("** Updated Successfully **");
+		}catch(Exception e)
+		{
+			System.out.println(e.getMessage());
+		}
     }
-    public void CancelAppointments() {
-    	
-    }
-    public void ChangePassword()
+ 
+    public void Givefeedback(int id) 
     {
-    	
+    	System.out.println("*** Give feedback ***");
+    	int pid = id;
+    	System.out.println("Enter Your name :");
+    	String name = sc.next();
+    	System.out.println("Give points to our services out of 10 :");
+    	int points=sc.nextInt();
+    	System.out.println("Enter Doctor Nature :");
+    	String Doc_Nature =sc.next();
+    	System.out.println("Enter Your Location :");
+    	String Location = sc.next();
+    	System.out.println("Enter Your Feedback Please :");
+    	String YourComment= sc.next();
+    	try {
+			Connection con=ConnectionProvider.getCon();
+			Statement st=con.createStatement();
+			//ResultSet rs=st.executeUpdate("");//     Yash//
+			st.executeUpdate("INSERT INTO feedback VALUES ('"+pid+"','"+name+"','"+points+"','"+Doc_Nature+"','"+Location+"','"+YourComment+"')");
+		}catch(Exception e)
+		{
+			System.out.println(e.getMessage());
+		}
     }
-    
-    
-    public void assignDoctor() 
-    {
-    	
-    }
-    public void billpayment() {}
-    public void Givefeedback() {}//feedback form banega
-   
+
     
     
 	

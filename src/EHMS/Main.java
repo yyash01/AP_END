@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 public class Main 
 {
+	@SuppressWarnings("resource")
 	public static void main(String[] args) 
 	{
 		System.out.println("\n\t******************************E-HealthCare-Management-Sytem***********************************\n");
@@ -122,7 +123,7 @@ public class Main
 		    	try {
 					Connection con=ConnectionProvider.getCon();
 					Statement st=con.createStatement();
-					st.executeQuery("Select * from Users where userID=id && userType='Patient' && Password=pd");
+					st.executeQuery("Select * from Users where userID="+id+" && userType='Patient' && Password="+pd+";");
 					flag=1;
 				}catch(Exception e){
 					System.out.println("Not Registerd"+e.getMessage());
@@ -136,10 +137,10 @@ public class Main
 		    	        System.out.print("\t*                  1.ViewProfile                                                             *\n");
 		    	        System.out.print("\t*                  2.viewDoctors                                                             *\n");
 		    	        System.out.print("\t*                  3.BookAppointments                                                        *\n");
-		    	        System.out.print("\t*                  4.CancelAppointment                                                       *\n");
-		    	        System.out.print("\t*                  5.ViewReport                                                              *\n");
-		    	        System.out.print("\t*                  6.viewAppointments                                                        *\n");
-		    	        System.out.print("\t*                  7.ChangePassword                                                          *\n");
+		    	        System.out.print("\t*                  4.ViewReport                                                              *\n");
+		    	        System.out.print("\t*                  5.viewAppointments                                                        *\n");
+		    	        System.out.print("\t*                  6.ChangePassword                                                          *\n");
+		    	        System.out.print("\t*                  7.Give FeedBack                                                           *\n");
 		    	        System.out.print("\t*                  8.LOGOUT                                                                  *\n");
 		    	        System.out.print("\t**********************************************************************************************\n");
 		    			int ch=sc.nextInt();
@@ -160,19 +161,20 @@ public class Main
 		    				}
 		    				case 4:
 		    				{
-		    					P[id].CancelAppointments();
+		    					P[id].ViewReport(id);
 		    				}
 		    				case 5:
 		    				{
-		    					P[id].ViewReport();
+		    					P[id].viewAppointment(id);
 		    				}
 		    				case 6:
 		    				{
-		    					P[id].viewAppointment();
+		    					P[id].ChangePassword(id);
 		    				}
 		    				case 7:
 		    				{
-		    					P[id].ChangePassword();
+		    					P[id].Givefeedback(id) ;
+		    					
 		    				}
 		    				case 8:
 		    				{
@@ -199,7 +201,7 @@ public class Main
 		    	try {
 					Connection con=ConnectionProvider.getCon();
 					Statement st=con.createStatement();
-					st.executeUpdate("Select * from Users where userID=id && userType='Doctor' && Password=pd");
+					st.executeUpdate("Select * from Users where userID="+id+" and userType="+userType+" and Password="+pd+";");
 					flag=1;
 				}catch(Exception e){
 					System.out.println("Not Registerd");
@@ -212,9 +214,8 @@ public class Main
 		    	        System.out.print("\t*                                                                                            *\n");
 		    	        System.out.print("\t*                  1.view_DOCTOR_Profile                                                     *\n");
 		    	        System.out.print("\t*                  2.viewAppointments                                                        *\n");
-		    	        System.out.print("\t*                  3.cancelAppointments                                                      *\n");
-		    	        System.out.print("\t*                  4.DiagonistPatient                                                        *\n");
-		    	        System.out.print("\t*                  5.LOGOUT                                                                  *\n");
+		    	        System.out.print("\t*                  3.DiagonistPatient                                                        *\n");
+		    	        System.out.print("\t*                  4.LOGOUT                                                                  *\n");
 		    	        System.out.print("\t*                                                                                            *\n");
 		    	        System.out.print("\t**********************************************************************************************\n");	
 		    			int ch=sc.nextInt();
@@ -230,13 +231,9 @@ public class Main
 		    				}
 		    				case 3:
 		    				{
-		    					D[id].CancelAppointment(id);
-		    				}
-		    				case 4:
-		    				{
 		    					D[id].DiagonistPatient(id);
 		    				}
-		    				case 5:
+		    				case 4:
 		    				{
 		    					checkDoctor = true;
 		    					break;
@@ -245,13 +242,14 @@ public class Main
 		    			if(checkDoctor)
 		    				break;
 		    		}//end of while
-		    	}
-		    	break;	
+		    			break;
+		    	}//end of if
+			
 		    }
 		    case 4:   //registration of Patient
 		    {
 		    	p=new Patients();
-		    	int pid=p.addPatient();
+		    	int pid=p.addPatient(P);
 		    	System.out.println("****** Fill the following details ******");
 		    	p.PatientRegistration(pid);
 		    	break;
