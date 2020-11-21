@@ -1,6 +1,4 @@
 package EHMS;
-import EHMS.ConnectionProvider;
-import EHMS.Appointment;
 import java.sql.*;
 import java.util.Scanner;
 
@@ -15,8 +13,6 @@ public class Main
 		Admin a=new Admin();
 		Patients p=null;
 		Doctor d=null;
-		Patients[] P=new Patients[10000];
-		Doctor[] D=new Doctor[10000];
 		while(true)
 		{
 	        System.out.print("\t**********************************************************************************************\n");
@@ -25,22 +21,22 @@ public class Main
 	        System.out.print("\t*                  2. PATIENT - LOGIN                                                        *\n");
 	        System.out.print("\t*                  3. DOCTOR - LOGIN                                                         *\n");
 	        System.out.print("\t*                                                                                            *\n");
-	        System.out.print("\t*                  4. REGISTER - PATIENT                                                     *\n");
+	        System.out.print("\t*                  4. PATIENT-SIGN-UP                                                        *\n");
 	        System.out.print("\t*                                                                                            *\n");
 	        System.out.print("\t*                  5. EXIT                                                                   *\n");
 	        System.out.print("\t**********************************************************************************************\n");	
 		int choice = sc.nextInt();
 		switch (choice)
 		{
-		    case 1:  // admins portal
+		    case 1:  // Admins portal
 		    {  
 		    	boolean checkadmin = false;
-		    	System.out.println("***********Welcome to Admins portal******************");
+		    	System.out.println("*****************Welcome to Admins portal***********************");
 		    	String un;
 		    	String pd;
 		    	System.out.print("USERNAME-->");un=sc.next();
 		    	System.out.print("Password-->");pd=sc.next();
-		    	if((un.compareTo("Siddharth")==0&&pd.compareTo("1234")==0)||(un.compareTo("Yash")==0&&pd.compareTo("1234")==0))
+		    	if((un.compareTo("abc")==0&&pd.compareTo("1234")==0)||(un.compareTo("xyz")==0&&pd.compareTo("1234")==0))
 		    	{
 		    		while(true)
 		    		{
@@ -52,23 +48,27 @@ public class Main
 		    	        System.out.print("\t*                  4.RemoveDoctor                                                            *\n");
 		    	        System.out.print("\t*                  5.AppointmentsDetail                                                      *\n");
 		    	        System.out.print("\t*                  6.ViewFeedbacks                                                           *\n");
-		    	        System.out.print("\t*                  7.LOGOUT                                                                  *\n");
+		    	        System.out.print("\t*                  7.ViewReports                                                             *\n");
+		    	        System.out.print("\t*                  8.LOGOUT                                                                  *\n");
 		    	        System.out.print("\t**********************************************************************************************\n");	
 		    			int ch=sc.nextInt();
 		    			switch(ch)
 		    			{
 		    				case 1:
 		    				{
+		    					/*To view all doctor detail*/
 		    					a.viewDoctors();
 		    					break;
 		    				}
 		    				case 2:
 		    				{
+		    					/*To view all Patient Detail*/
 		    					a.viewPatients();
 		    					break;
 		    				}
 		    				case 3:
 		    				{
+		    					/*To add new doctor*/
 		    					int Id=a.addDoctor();
 		    					d=new Doctor();
 		    					d.DoctorRegistration(Id);
@@ -76,6 +76,7 @@ public class Main
 		    				}
 		    				case 4:
 		    				{
+		    					/*To Remove Doctor*/
 		    					System.out.println("Enter doctorID!!");
 		    					int id=sc.nextInt();
 		    					a.RemoveDoctor(id);
@@ -83,18 +84,23 @@ public class Main
 		    				}
 		    				case 5:
 		    				{
-	    					  //AppointmentsDetail
-		    					a.Appointment();
+	    					  //Appointments
+		    					a.ViewAppointment();
 		    					break;
 		    				}
-		    				//case-8 was paymentDetail -> we will fix price of each doctor => 500/- okay.
 		    				case 6:
 		    				{
-		    					//feedbacks
+		    					//TO VIEW FEEDBACK GIVEN BY THE PATIENT//
 		    					a.ViewFeedback();
 		    					break;
 		    				}
 		    				case 7:
+		    				{
+		    					//TO VIEW FEEDBACK GIVEN BY THE PATIENT//
+		    					a.ViewReports();
+		    					break;
+		    				}
+		    				case 8:
 		    				{
 		    					checkadmin = true;
 		    					break;
@@ -107,7 +113,7 @@ public class Main
 		    		
 		    	}
 		    	else
-		    		System.out.println("Invalid username or password");
+		    		System.out.println("Invalid Username or Password");
 		    	break;
 		    }
 		    case 2:   //For Patient   
@@ -117,19 +123,23 @@ public class Main
 		    	System.out.println("*****************Welcome to patient portal***********************");
 		    	int id;
 		    	String pd;
-		    	String userType="Patient";
 		    	System.out.print("ID:");id=sc.nextInt();
 		    	System.out.print("Password:");pd=sc.next();
 		    	try {
 					Connection con=ConnectionProvider.getCon();
 					Statement st=con.createStatement();
-					st.executeQuery("Select * from Users where userID="+id+" && userType='Patient' && Password="+pd+";");
-					flag=1;
+					ResultSet rs=st.executeQuery("Select * from Users");
+					while(rs.next()) {
+						if(rs.getInt(1)==id && rs.getString(2).compareTo("Patient")==0 && (rs.getString(3).compareTo(pd)==0 )){
+							flag=1;
+						}
+					}
 				}catch(Exception e){
-					System.out.println("Not Registerd"+e.getMessage());
+					e.printStackTrace();
 				}
 		    	if(flag==1)
 		    	{
+		    		p=new Patients();
 		    		while(true)
 		    		{
 		    			System.out.print("\t**********************************************************************************************\n");
@@ -139,41 +149,49 @@ public class Main
 		    	        System.out.print("\t*                  3.BookAppointments                                                        *\n");
 		    	        System.out.print("\t*                  4.ViewReport                                                              *\n");
 		    	        System.out.print("\t*                  5.viewAppointments                                                        *\n");
-		    	        System.out.print("\t*                  6.ChangePassword                                                          *\n");
-		    	        System.out.print("\t*                  7.Give FeedBack                                                           *\n");
-		    	        System.out.print("\t*                  8.LOGOUT                                                                  *\n");
+		    	        System.out.print("\t*                  6.viewCompletedAppointments                                               *\n");
+		    	        System.out.print("\t*                  7.ChangePassword                                                          *\n");
+		    	        System.out.print("\t*                  8.Give FeedBack                                                           *\n");
+		    	        System.out.print("\t*                  9.LOGOUT                                                                  *\n");
 		    	        System.out.print("\t**********************************************************************************************\n");
 		    			int ch=sc.nextInt();
 		    			switch(ch)
 		    			{
 		    				case 1:
 		    				{
-		    					P[id].ShowPatientDetails(id);
+		    					p.ShowPatientDetails(id);
+		    					break;
 		    				}
 		    				case 2:
 		    				{
-		    					P[id].viewDoctor();
+		    					p.viewDoctor();
+		    					break;
 		    				}
 		    				case 3:
 		    				{
-		    					P[id].BookAppointment(id);
+		    					p.BookAppointment(id);
+		    					break;
 		    					
 		    				}
 		    				case 4:
 		    				{
-		    					P[id].ViewReport(id);
+		    					p.ViewReport(id);
+		    					break;
 		    				}
 		    				case 5:
 		    				{
-		    					P[id].viewAppointment(id);
+		    					p.viewAppointment(id);
+		    					break;
 		    				}
 		    				case 6:
 		    				{
-		    					P[id].ChangePassword(id);
+		    					p.AppointmentHistory(id) ;
+		    					break;
 		    				}
 		    				case 7:
 		    				{
-		    					P[id].Givefeedback(id) ;
+		    					p.Givefeedback(id) ;
+		    					break;
 		    					
 		    				}
 		    				case 8:
@@ -184,8 +202,12 @@ public class Main
 		    			}
 		    			if(checkPatient)
 		    				break;
-		    		}//end of while
+		    		}
 		    	}
+		    	else
+	    		{
+	    			System.out.println("Invali UserID or password!!!");
+	    		}
 		    	break;
 		    }
 		    case 3: //For Doctor
@@ -195,14 +217,17 @@ public class Main
 		    	int flag=0;
 		    	int id;
 		    	String pd;
-		    	String userType="Doctor";
 		    	System.out.print("DOCTOR - ID : ");id=sc.nextInt();
 		    	System.out.print("Password : ");pd=sc.next();
 		    	try {
-					Connection con=ConnectionProvider.getCon();
+		    		Connection con=ConnectionProvider.getCon();
 					Statement st=con.createStatement();
-					st.executeUpdate("Select * from Users where userID="+id+" and userType="+userType+" and Password="+pd+";");
-					flag=1;
+					ResultSet rs=st.executeQuery("Select * from Users");
+					while(rs.next()) {
+						if(rs.getInt(1)==id && rs.getString(2).compareTo("Doctor")==0 && (rs.getString(3).compareTo(pd)==0 )){
+							flag=1;
+						}
+					}
 				}catch(Exception e){
 					System.out.println("Not Registerd");
 				}
@@ -223,20 +248,30 @@ public class Main
 		    			{
 		    				case 1:
 		    				{
-		    					D[id].ShowDoctorDetails(id);
+		    					d=new Doctor();
+		    					d.ShowDoctorDetails(id);
+		    					break;
 		    				}
 		    				case 2:
 		    				{
-		    					D[id].viewAppointment(id);
+		    					d=new Doctor();
+		    					d.viewAppointment(id);
+		    					break;
 		    				}
 		    				case 3:
 		    				{
-		    					D[id].DiagonistPatient(id);
+		    					d=new Doctor();
+		    					d.DiagonistPatient(id);
+		    					break;
 		    				}
 		    				case 4:
 		    				{
 		    					checkDoctor = true;
 		    					break;
+		    				}
+		    				default:
+		    				{
+		    					System.out.println("Select Approprate option");
 		    				}
 		    			}//end of switch.
 		    			if(checkDoctor)
@@ -244,14 +279,17 @@ public class Main
 		    		}//end of while
 		    			break;
 		    	}//end of if
-			
+		    	else {
+		    		System.out.println("Invalid Username or Password!!!");
+		    	}
+		    	break;
 		    }
-		    case 4:   //registration of Patient
+		    case 4:   /**For Patient Registration**/
 		    {
 		    	p=new Patients();
-		    	int pid=p.addPatient(P);
-		    	System.out.println("****** Fill the following details ******");
-		    	p.PatientRegistration(pid);
+		    	int pid=p.addPatient();
+		    	System.out.println("*** Fill the following details ***");
+		    	p.PatientRegistration(pid);//Patient Registration Form//
 		    	break;
 		    }
 		    case 5:

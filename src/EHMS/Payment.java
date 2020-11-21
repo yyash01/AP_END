@@ -1,23 +1,23 @@
+//****************************************************************PAYMENT-CLASS******************************************************************************//
 package EHMS;
 
 import java.util.*;
-
+/*********************************/ 
 public class Payment 
 {
 	Scanner input=new Scanner(System.in);
-	public String CreditCardDetails(int fee)
+	public String CreditCardDetails(int fee)//THIS METHOD TAKES THE CREDIT CARD DETILS OF THE PATIENT 
 	{
 		String Status;
-		System.out.println("Enter Amount:"+fee);
-		System.out.println("Enter CARD-HOLDER Name : ");
-		String cardHolderName=input.next();
-		System.out.println("Enter CARD-NUMBER : ");
-		int card_no=input.nextInt();
-		System.out.println("Enter EXPIRY DATE : ");
-		String ExpiryDate=input.toString();
-		System.out.println("Enter CVC number of CARD : ");
+		System.out.println("         CARD-HOLDER Name : ");
+		String cardHolderName=input.nextLine();
+		System.out.println("         CARD-NUMBER : ");
+		String card_no=input.nextLine();
+		System.out.println("         EXPsIRY DATE : ");
+		String ExpiryDate=input.nextLine();
+		System.out.println("         CVC number: ");
 		int cvc=input.nextInt();
-		System.out.println("*** Enter 1 to confirm Payment ***");
+		System.out.println("Please Enter 1 to confirm Payment---");
 		int x=input.nextInt();
 		if(x==1)
 		{
@@ -31,3 +31,4 @@ public class Payment
 		}
 	}
 }
+/*********************************/

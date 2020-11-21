@@ -1,6 +1,8 @@
 package EHMS;
+import EHMS.ConnectionProvider;
 import java.sql.*;
 import java.util.*;
+@SuppressWarnings("unused")
 public class Admin extends Person
 {
 
@@ -34,20 +36,10 @@ public class Admin extends Person
 		password=sc.next();
 		while(true)
 		{
-			System.out.println("Confirm Password Below");
+			System.out.println("Confirm Password");
 			cpd=sc.next();
 			if(password.compareTo(cpd)==0)
-			{
-				
-				System.out.println("***Successfully Added DOCTOR***");
-				System.out.println("DOCTOR-ID : "+DoctorID);
-				System.out.println("PASSWORD : "+password);
-				break;
-			}
-			else
-			{
-				System.out.println("**\tRE-ENTER The Password**");
-			}
+					break;
 		}
 		try {
 			Connection con=ConnectionProvider.getCon();
@@ -59,19 +51,21 @@ public class Admin extends Person
 		}
 		return DoctorID;
 	}
+	/*Admin can view all the Doctor detail*/
 	public void viewDoctors()
 	{
 		try 
 		{
-			Connection con=ConnectionProvider.getCon();
+			Connection con=ConnectionProvider.getCon();/*getting connection*/
 			DBTablePrinter.printTable(con, "Doctors");
 			con.close();
 		}
 		catch(Exception e)
-		{ System.out.println("EXCEPTION OCCURS");}  
-
-
+		{ 
+			System.out.println("EXCEPTION OCCURS");
+		}  
 	}
+	/*Admin can view all the patients detail*/
 	public void viewPatients()
 	{
 		try 
@@ -82,7 +76,7 @@ public class Admin extends Person
 		catch(Exception e)
 		{ System.out.println("EXCEPTION OCCURS");}  
 	}
-	
+	/*Admin can remove doctor */
 	public void RemoveDoctor(int id)
 	{
 		try 
@@ -90,14 +84,24 @@ public class Admin extends Person
 			Connection con=ConnectionProvider.getCon();
 			Statement st=con.createStatement();
 			st.executeUpdate("delete  from Doctors where DoctorID = "+id);
-			System.out.println("Removed Succesfully");
+			System.out.println("Doctor Removed Succesfully!!");
 		}
 		catch(Exception e)
-		{ System.out.println("EXCEPTION OCCURS");}  
+		{ System.out.println("EXCEPTION OCCURS"+e.getMessage());}  
 	}
-	
-	
-	public void Appointment() //case 5: in main.java file ---  Appointmnet Table ka content Show ho jayega.
+	/*Admin can view feedback*/
+	public void ViewFeedback() //admin can view all the feedback
+	{
+		try 
+		{ 
+			Connection con=ConnectionProvider.getCon();
+			DBTablePrinter.printTable(con, "feedback");
+		}
+		catch(Exception e)
+		{ System.out.println("EXCEPTION OCCURS");}	
+	}
+	/*To view all the all the appointments taking place */
+	public void ViewAppointment()
 	{
 		try 
 		{
@@ -108,16 +112,9 @@ public class Admin extends Person
 		{ System.out.println("EXCEPTION OCCURS");}  
 		
 	}  
-	
-	
-	public void ViewFeedback() //admin can view all the feedback
+	public void ViewReports()
 	{
-		try 
-		{  //done bro.  --- from yash
-			Connection con=ConnectionProvider.getCon();
-			DBTablePrinter.printTable(con, "feedback");
-		}
-		catch(Exception e)
-		{ System.out.println("EXCEPTION OCCURS");}	
+		Report r=new Report();
+		r.ShowReport();
 	}
 }

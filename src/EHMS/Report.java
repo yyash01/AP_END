@@ -8,13 +8,14 @@ import java.util.Scanner;
 public class Report
 {
 	Scanner input=new Scanner(System.in);
-	int RepId;
-	int pid;
-	int appid;
-	int docid;
-	String MedicinePrescribed;
-	String DoctorsComment;
-	private int AutoReportID()
+	private int RepId;
+	private int pid;
+	private int appid;
+	private int docid;
+	private String MedicinePrescribed;
+	private String DoctorsComment;
+	/***********************************************************************************************/ 
+	private int AutoReportID()/**/
 	{
 		int repID=0;
 		try{
@@ -33,16 +34,22 @@ public class Report
 		}
 		return repID+1;
 	}
-	public void DiagonistReport(int pid,int appid,int docid)
+	/***********************************************************************************************/ 
+	public void DiagonistReport(int pid,int appid,int docid)/*This Method*/
 	{
+		RepId=AutoReportID();
+		System.out.println("ReportID--"+RepId);
 		this.pid=pid;
+		System.out.println("PatientID--"+pid);
 		this.appid=appid;
+		System.out.println("AppointmentID--"+appid);
 		this.docid=docid;
-		System.out.println("Prescribed medicine to patient:");
-		MedicinePrescribed=input.next();
-		System.out.println("Additional Information::");
-		DoctorsComment=input.next();
-		System.out.println("Enter 1 to Generate Report::");
+		System.out.println("DoctorID--"+docid);
+		System.out.println("Prescribed medicine to patient--");
+		MedicinePrescribed=input.nextLine();
+		System.out.println("Additional Information--");
+		DoctorsComment=input.nextLine();
+		System.out.println("Enter 1 to Generate Report--");
 		int x=input.nextInt();
 		if(x==1)
 		{
@@ -54,56 +61,34 @@ public class Report
 			System.out.println("** Enter Appropriate Details Please **");	
 		}
 	}
-	//return doctor Fees
-	int GetDoctorFees(int docID)
-	{
-		int  DoctorFees = 0;
-		try
-		{
-			Connection con=ConnectionProvider.getCon();
-			Statement st=con.createStatement();
-			ResultSet rs=st.executeQuery("select * from Doctors where DoctorID="+docID);
-			while(rs.next())
-			{
-				DoctorFees = rs.getInt(7);
-			}
-		}catch(Exception e) {
-			System.out.println(e.getMessage());
-		}
-		return DoctorFees;	
-	}
-	String GetStatus(int docID)
-	{
-		String status = null;
-		try
-		{
-			Connection con=ConnectionProvider.getCon();
-			Statement st=con.createStatement();
-			ResultSet rs=st.executeQuery("select * from Appointments where DoctorID="+docID);
-			while(rs.next())
-			{
-				status = rs.getString(9);
-			}	
-		}
-		catch(Exception e)
-		{
-			System.out.println(e.getMessage());
-		}
-		return status;
-	}
-	public void GenerateReport()//yash
+	/***********************************************************************************************/ 
+	public void GenerateReport()/**/
 	{
 		try {
 			Connection con=ConnectionProvider.getCon();
 			Statement st=con.createStatement();
-			//ResultSet rs=st.executeUpdate("");//     Yash//
-			st.executeUpdate("INSERT INTO Reports VALUES ('"+AutoReportID()+"','"+appid+"','"+pid+"','"+docid+"','"+MedicinePrescribed+"','"+DoctorsComment+"','"+GetDoctorFees(docid)+"','"+GetStatus(docid)+"')");
+			st.executeUpdate("INSERT INTO Reports VALUES ('"+RepId+"','"+appid+"','"+pid+"','"+docid+"','"+MedicinePrescribed+"','"+DoctorsComment+"')");
+			System.out.println("Report Generated Succesfully!!!");
+			ChangeStatus();
 		}catch(Exception e)
 		{
 			System.out.println(e.getMessage());
 		}
 	}
-	public void ShowReport()
+	private void ChangeStatus()
+	{
+		try {
+			Connection con=ConnectionProvider.getCon();
+			Statement st=con.createStatement();
+			st.executeUpdate("UPDATE Appointments SET Appointment_Status='Completed' WHERE AppointmentID="+appid);
+		}
+		catch(Exception e)
+		{
+			System.out.println("e.getMessage()");
+		}
+	}
+	/***********************************************************************************************/ 
+	public void ShowReport()/**/
 	{
 		try 
 		{
@@ -111,6 +96,7 @@ public class Report
 			DBTablePrinter.printTable(con, "Reports");
 		}
 		catch(Exception e)
-		{ System.out.println("EXCEPTION OCCURS");}  
+		{ System.out.println("EXCEPTION OCCURS"+e.getMessage());}  
 	}
+	/***********************************************************************************************/ 
 }

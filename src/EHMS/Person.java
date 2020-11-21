@@ -39,5 +39,6 @@ public class Person
     	Country=sc.next();
     	System.out.println("Address:");
     	Address=sc.next();
+    	//sc.close();
 	}
 }
