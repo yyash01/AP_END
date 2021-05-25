@@ -150,9 +150,8 @@ public class Main
 		    	        System.out.print("\t*                  4.ViewReport                                                              *\n");
 		    	        System.out.print("\t*                  5.viewAppointments                                                        *\n");
 		    	        System.out.print("\t*                  6.viewCompletedAppointments                                               *\n");
-		    	        System.out.print("\t*                  7.ChangePassword                                                          *\n");
-		    	        System.out.print("\t*                  8.Give FeedBack                                                           *\n");
-		    	        System.out.print("\t*                  9.LOGOUT                                                                  *\n");
+		    	        System.out.print("\t*                  7.Give FeedBack                                                           *\n");
+		    	        System.out.print("\t*                  8.LOGOUT                                                                  *\n");
 		    	        System.out.print("\t**********************************************************************************************\n");
 		    			int ch=sc.nextInt();
 		    			switch(ch)

@@ -23,7 +23,17 @@ public class Doctor extends Person
     	System.out.println("Qualification:");
     	Qualification=sc.next();
     	System.out.println("Doctor_Type:");
-    	System.out.println("1.Eyes\n 2.EAR.\n3.Heart\n4.Bone\n5.Lungs\n6.Kidney\n7.General_Physicist");
+		System.out.print("\t*******************************************************************\n");
+        System.out.print("\t*                                                                 *\n");
+        System.out.print("\t*                  1.Eyes                                         *\n");
+        System.out.print("\t*                  2.EAR                                          *\n");
+        System.out.print("\t*                  3.Heart                                        *\n");
+        System.out.print("\t*                  4.Bones                                        *\n");
+        System.out.print("\t*                  5.Lungs                                        *\n");
+        System.out.print("\t*                  6.Kidney                                       *\n");
+        System.out.print("\t*                  7.General_Phsysicist                           *\n");
+        System.out.print("\t*                                                                 *\n");
+        System.out.print("\t*******************************************************************\n");
     	int ch=sc.nextInt();
     	switch(ch)
 		{
@@ -168,6 +178,7 @@ public class Doctor extends Person
 			else
 			{
 				System.out.println("******Wrong appointmentID****");
+				break;
 			}
 		}
 		

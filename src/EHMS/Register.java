@@ -1,5 +1,4 @@
 package EHMS;
-import EHMS.*;
 import java.sql.*;
 
 public class Register 
